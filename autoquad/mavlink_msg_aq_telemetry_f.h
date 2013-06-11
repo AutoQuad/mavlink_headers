@@ -30,6 +30,9 @@ typedef struct __mavlink_aq_telemetry_f_t
 #define MAVLINK_MSG_ID_AQ_TELEMETRY_F_LEN 82
 #define MAVLINK_MSG_ID_150_LEN 82
 
+#define MAVLINK_MSG_ID_AQ_TELEMETRY_F_CRC 241
+#define MAVLINK_MSG_ID_150_CRC 241
+
 
 
 #define MAVLINK_MESSAGE_INFO_AQ_TELEMETRY_F { \
@@ -93,7 +96,7 @@ static inline uint16_t mavlink_msg_aq_telemetry_f_pack(uint8_t system_id, uint8_
 						       uint16_t Index, float value1, float value2, float value3, float value4, float value5, float value6, float value7, float value8, float value9, float value10, float value11, float value12, float value13, float value14, float value15, float value16, float value17, float value18, float value19, float value20)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
-	char buf[82];
+	char buf[MAVLINK_MSG_ID_AQ_TELEMETRY_F_LEN];
 	_mav_put_float(buf, 0, value1);
 	_mav_put_float(buf, 4, value2);
 	_mav_put_float(buf, 8, value3);
@@ -116,7 +119,7 @@ static inline uint16_t mavlink_msg_aq_telemetry_f_pack(uint8_t system_id, uint8_
 	_mav_put_float(buf, 76, value20);
 	_mav_put_uint16_t(buf, 80, Index);
 
-        memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, 82);
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_AQ_TELEMETRY_F_LEN);
 #else
 	mavlink_aq_telemetry_f_t packet;
 	packet.value1 = value1;
@@ -141,11 +144,15 @@ static inline uint16_t mavlink_msg_aq_telemetry_f_pack(uint8_t system_id, uint8_
 	packet.value20 = value20;
 	packet.Index = Index;
 
-        memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, 82);
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_AQ_TELEMETRY_F_LEN);
 #endif
 
 	msg->msgid = MAVLINK_MSG_ID_AQ_TELEMETRY_F;
-	return mavlink_finalize_message(msg, system_id, component_id, 82, 241);
+#if MAVLINK_CRC_EXTRA
+    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_AQ_TELEMETRY_F_LEN, MAVLINK_MSG_ID_AQ_TELEMETRY_F_CRC);
+#else
+    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_AQ_TELEMETRY_F_LEN);
+#endif
 }
 
 /**
@@ -182,7 +189,7 @@ static inline uint16_t mavlink_msg_aq_telemetry_f_pack_chan(uint8_t system_id, u
 						           uint16_t Index,float value1,float value2,float value3,float value4,float value5,float value6,float value7,float value8,float value9,float value10,float value11,float value12,float value13,float value14,float value15,float value16,float value17,float value18,float value19,float value20)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
-	char buf[82];
+	char buf[MAVLINK_MSG_ID_AQ_TELEMETRY_F_LEN];
 	_mav_put_float(buf, 0, value1);
 	_mav_put_float(buf, 4, value2);
 	_mav_put_float(buf, 8, value3);
@@ -205,7 +212,7 @@ static inline uint16_t mavlink_msg_aq_telemetry_f_pack_chan(uint8_t system_id, u
 	_mav_put_float(buf, 76, value20);
 	_mav_put_uint16_t(buf, 80, Index);
 
-        memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, 82);
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_AQ_TELEMETRY_F_LEN);
 #else
 	mavlink_aq_telemetry_f_t packet;
 	packet.value1 = value1;
@@ -230,11 +237,15 @@ static inline uint16_t mavlink_msg_aq_telemetry_f_pack_chan(uint8_t system_id, u
 	packet.value20 = value20;
 	packet.Index = Index;
 
-        memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, 82);
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_AQ_TELEMETRY_F_LEN);
 #endif
 
 	msg->msgid = MAVLINK_MSG_ID_AQ_TELEMETRY_F;
-	return mavlink_finalize_message_chan(msg, system_id, component_id, chan, 82, 241);
+#if MAVLINK_CRC_EXTRA
+    return mavlink_finalize_message_chan(msg, system_id, component_id, chan, MAVLINK_MSG_ID_AQ_TELEMETRY_F_LEN, MAVLINK_MSG_ID_AQ_TELEMETRY_F_CRC);
+#else
+    return mavlink_finalize_message_chan(msg, system_id, component_id, chan, MAVLINK_MSG_ID_AQ_TELEMETRY_F_LEN);
+#endif
 }
 
 /**
@@ -281,7 +292,7 @@ static inline uint16_t mavlink_msg_aq_telemetry_f_encode(uint8_t system_id, uint
 static inline void mavlink_msg_aq_telemetry_f_send(mavlink_channel_t chan, uint16_t Index, float value1, float value2, float value3, float value4, float value5, float value6, float value7, float value8, float value9, float value10, float value11, float value12, float value13, float value14, float value15, float value16, float value17, float value18, float value19, float value20)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
-	char buf[82];
+	char buf[MAVLINK_MSG_ID_AQ_TELEMETRY_F_LEN];
 	_mav_put_float(buf, 0, value1);
 	_mav_put_float(buf, 4, value2);
 	_mav_put_float(buf, 8, value3);
@@ -304,7 +315,11 @@ static inline void mavlink_msg_aq_telemetry_f_send(mavlink_channel_t chan, uint1
 	_mav_put_float(buf, 76, value20);
 	_mav_put_uint16_t(buf, 80, Index);
 
-	_mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_AQ_TELEMETRY_F, buf, 82, 241);
+#if MAVLINK_CRC_EXTRA
+    _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_AQ_TELEMETRY_F, buf, MAVLINK_MSG_ID_AQ_TELEMETRY_F_LEN, MAVLINK_MSG_ID_AQ_TELEMETRY_F_CRC);
+#else
+    _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_AQ_TELEMETRY_F, buf, MAVLINK_MSG_ID_AQ_TELEMETRY_F_LEN);
+#endif
 #else
 	mavlink_aq_telemetry_f_t packet;
 	packet.value1 = value1;
@@ -329,7 +344,11 @@ static inline void mavlink_msg_aq_telemetry_f_send(mavlink_channel_t chan, uint1
 	packet.value20 = value20;
 	packet.Index = Index;
 
-	_mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_AQ_TELEMETRY_F, (const char *)&packet, 82, 241);
+#if MAVLINK_CRC_EXTRA
+    _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_AQ_TELEMETRY_F, (const char *)&packet, MAVLINK_MSG_ID_AQ_TELEMETRY_F_LEN, MAVLINK_MSG_ID_AQ_TELEMETRY_F_CRC);
+#else
+    _mav_finalize_message_chan_send(chan, MAVLINK_MSG_ID_AQ_TELEMETRY_F, (const char *)&packet, MAVLINK_MSG_ID_AQ_TELEMETRY_F_LEN);
+#endif
 #endif
 }
 
@@ -579,6 +598,6 @@ static inline void mavlink_msg_aq_telemetry_f_decode(const mavlink_message_t* ms
 	aq_telemetry_f->value20 = mavlink_msg_aq_telemetry_f_get_value20(msg);
 	aq_telemetry_f->Index = mavlink_msg_aq_telemetry_f_get_Index(msg);
 #else
-	memcpy(aq_telemetry_f, _MAV_PAYLOAD(msg), 82);
+	memcpy(aq_telemetry_f, _MAV_PAYLOAD(msg), MAVLINK_MSG_ID_AQ_TELEMETRY_F_LEN);
 #endif
 }

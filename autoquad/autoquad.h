@@ -30,6 +30,30 @@ extern "C" {
 // ENUM DEFINITIONS
 
 
+/** @brief Available operating modes/statuses for AutoQuad flight controller. 
+				Bitmask up to 32 bits. Low side bits for base modes, high side for 
+				additional active features/modifiers/constraints. */
+#ifndef HAVE_ENUM_AUTOQUAD_NAV_STATUS
+#define HAVE_ENUM_AUTOQUAD_NAV_STATUS
+enum AUTOQUAD_NAV_STATUS
+{
+	AQ_NAV_STATUS_INIT=0, /* System is initializing | */
+	AQ_NAV_STATUS_STANDBY=1, /* System is standing by, not active | */
+	AQ_NAV_STATUS_MANUAL=2, /* Stabilized, under full manual control | */
+	AQ_NAV_STATUS_ALTHOLD=4, /* Altitude hold engaged | */
+	AQ_NAV_STATUS_POSHOLD=8, /* Position hold engaged | */
+	AQ_NAV_STATUS_DVH=16, /* Dynamic Velocity Hold is active | */
+	AQ_NAV_STATUS_MISSION=32, /* Autonomous mission execution mode | */
+	AQ_NAV_STATUS_CEILING_REACHED=67108864, /* Craft is at ceiling altitude | */
+	AQ_NAV_STATUS_CEILING=134217728, /* Ceiling altitude is set | */
+	AQ_NAV_STATUS_HF_DYNAMIC=268435456, /* Heading-Free dynamic mode active | */
+	AQ_NAV_STATUS_HF_LOCKED=536870912, /* Heading-Free locked mode active | */
+	AQ_NAV_STATUS_RTH=1073741824, /* Automatic Return to Home is active | */
+	AQ_NAV_STATUS_FAILSAFE=2147483648, /* System is in failsafe recovery mode | */
+	AUTOQUAD_NAV_STATUS_ENUM_END=2147483649, /*  | */
+};
+#endif
+
 /** @brief  */
 #ifndef HAVE_ENUM_MAV_CMD
 #define HAVE_ENUM_MAV_CMD
@@ -38,6 +62,7 @@ enum MAV_CMD
 	MAV_CMD_AQ_TELEMETRY=2, /* Start/stop AutoQuad telemetry values stream. |Start or stop (1 or 0)| Stream frequency in us| Empty| Empty| Empty| Empty| Empty|  */
 	MAV_CMD_AQ_FOLLOW=3, /* Command AutoQuad to go to a particular place at a set speed. |Latitude| Lontitude| Altitude| Speed| Empty| Empty| Empty|  */
 	MAV_CMD_AQ_REQUEST_VERSION=4, /* Request AutoQuad firmware version number. |Empty| Empty| Empty| Empty| Empty| Empty| Empty|  */
+	MAV_CMD_NAV_ORBIT_POI=15, /* Orbit around a point for set amount of time |Orbit radius around point, in meters.| Loiter seconds (decimal)| Max. horizontal speed| Desired yaw angle.| Latitude| Longitude| Altitude|  */
 	MAV_CMD_NAV_WAYPOINT=16, /* Navigate to MISSION. |Hold time in decimal seconds. (ignored by fixed wing, time to stay at MISSION for rotary wing)| Acceptance radius in meters (if the sphere with this radius is hit, the MISSION counts as reached)| 0 to pass through the WP, if > 0 radius in meters to pass by WP. Positive value for clockwise orbit, negative value for counter-clockwise orbit. Allows trajectory control.| Desired yaw angle at MISSION (rotary wing)| Latitude| Longitude| Altitude|  */
 	MAV_CMD_NAV_LOITER_UNLIM=17, /* Loiter around this MISSION an unlimited amount of time |Empty| Empty| Radius around MISSION, in meters. If positive loiter clockwise, else counter-clockwise| Desired yaw angle.| Latitude| Longitude| Altitude|  */
 	MAV_CMD_NAV_LOITER_TURNS=18, /* Loiter around this MISSION for X turns |Turns| Empty| Radius around MISSION, in meters. If positive loiter clockwise, else counter-clockwise| Desired yaw angle.| Latitude| Longitude| Altitude|  */
